@@ -18,6 +18,19 @@ cd OSD600-SSG
 npm install
 npm link
 ```
+## Help
+```
+ -h,--help: See help list
+ -v,--version: Version of current harryosdssg
+ -i,--input: input a file or a folder
+ -s,--stylesheet: Add a stylesheet link into <head>
+```
+
+## Usage
+```
+harryosdssg -i <file's location>
+harryosdssg --input <directory's location>
+```
 
 ## Built With
 
