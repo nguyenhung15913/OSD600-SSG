@@ -1,15 +1,8 @@
 <h1 align="center">OSD600 Static Site Generator</h1>
 
-<p align="center">Create a command line tool to convert user's text input file(s) into hmtl file(s)</p>
+<p align="center">Create a command line tool to convert user's text input file(s) into hmtl file(s).</p>
+<p align="center">Note: A new dist folder will be created to contain all files generated</p>
 
-
-## Screenshots
-
-![Home Page](/screenshots/1.png "Home Page")
-
-![](/screenshots/2.png)
-
-![](/screenshots/3.png)
 
 ## Installation
 ```
@@ -18,18 +11,19 @@ cd OSD600-SSG
 npm install
 npm link
 ```
+
+## Usage
+```
+harryosdssg -i <file's location>
+harryosdssg --input <directory's location>
+```
+
 ## Flags
 ```
  -h,--help: See help list
  -v,--version: Version of current harryosdssg
  -i,--input: input a file or a folder
  -s,--stylesheet: Add a stylesheet link into <head>
-```
-
-## Usage
-```
-harryosdssg -i <file's location>
-harryosdssg --input <directory's location>
 ```
 
 ## Built With
