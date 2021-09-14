@@ -1,0 +1,19 @@
+{
+  "name": "desktop",
+  "version": "osdssg-1.0.0",
+  "description": "",
+  "main": "osdssg.js",
+  "bin": {
+    "osdssg": "my-command"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-html-parser": "^4.1.4",
+    "yargs": "^17.1.1"
+  }
+}
