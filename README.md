@@ -18,7 +18,7 @@ cd OSD600-SSG
 npm install
 npm link
 ```
-## Help
+## Flags
 ```
  -h,--help: See help list
  -v,--version: Version of current harryosdssg
