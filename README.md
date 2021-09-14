@@ -12,10 +12,12 @@
 ![](/screenshots/3.png)
 
 ## Installation
+```
 git clone <url>
 cd OSD600-SSG
 npm install
 npm link
+```
 
 ## Built With
 
