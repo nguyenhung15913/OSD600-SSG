@@ -14,8 +14,8 @@ npm link
 
 ## Usage
 ```
-harryosdssg -i <file's location>
-harryosdssg --input <directory's location>
+harryosdssg -i <file's location> 
+harryosdssg --input <directory's location> // Read all files inside and creates html files for each
 ```
 
 ## Flags
