@@ -21,7 +21,7 @@ osdssg --input <directory's location> // Read all files inside and creates html 
 ## Flags
 ```
  -h,--help: See help list
- -v,--version: Version of current harryosdssg
+ -v,--version: Version of current osdssg
  -i,--input: input a file or a folder
  -s,--stylesheet: Add a stylesheet link into <head>
 ```
