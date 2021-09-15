@@ -40,8 +40,3 @@ harryosdssg --input <directory's location> // Read all files inside and creates 
 - [Profile](https://github.com/nguyenhung15913")
 - [Email](mailto:hnguyen97@myseneca.ca")
 
-## 🤝 Support
-
-Contributions, issues, and feature requests are welcome!
-
-Give a ⭐️ if you like this project!
