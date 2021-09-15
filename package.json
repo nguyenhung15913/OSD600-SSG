@@ -1,6 +1,6 @@
 {
   "name": "desktop",
-  "version": "osdssg-1.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "osdssg.js",
   "bin": {

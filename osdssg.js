@@ -22,6 +22,11 @@ let cli = require('yargs')
 
 cli = cli
 	.usage('All available options for OSDSSG: ')
+	.version(
+		true,
+		'Display current version of osdssg',
+		'Current version of osdssg is 1.0.0'
+	)
 	.option('help', {
 		alias: 'h',
 		desc: 'Displaying all options available'
