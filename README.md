@@ -21,8 +21,9 @@ npm link
 
 ## Usage
 ```
-osdssg -i <file's location> // if file's name contains whitespaces, please use double quote ("")
+osdssg -i <file's location>
 osdssg --input <directory's location> // Read all files inside and creates html files for each
+ // Note: file's name and folder's name that contains whitespaces have to be placed inside double quote ("")
 ```
 
 ## Flags
