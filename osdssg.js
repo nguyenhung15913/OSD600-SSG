@@ -108,6 +108,14 @@ if (command.i || command.input) {
 				fs.readFile(`${fileOrDir}/${file}`, 'utf-8', (error, data) => {
 					if (error) throw error
 					let parsedHtml = parse(html)
+
+					if (command.s) {
+						let head = parsedHtml.querySelector('head')
+						head.appendChild(
+							parse(`<link href="${command.s}" rel="stylesheet" />`)
+						)
+					}
+
 					parsedHtml.querySelector('title').set_content(getTitle(data))
 					let body = parsedHtml.querySelector('body')
 					body.appendChild(parse(textToP(data)))
