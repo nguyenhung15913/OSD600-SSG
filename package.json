@@ -1,5 +1,5 @@
 {
-  "name": "desktop",
+  "name": "OSD600-SSG",
   "version": "1.0.0",
   "description": "",
   "main": "osdssg.js",
@@ -10,8 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Hung Nguyen",
+  "license": "MIT",
   "dependencies": {
     "node-html-parser": "^4.1.4",
     "yargs": "^17.1.1"
