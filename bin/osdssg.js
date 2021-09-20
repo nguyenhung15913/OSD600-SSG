@@ -59,7 +59,7 @@ if (command.i || command.input) {
 		path.join(__dirname, 'htmlTemplate.html'),
 		'utf-8',
 		(err, html) => {
-			if (err) throw err
+			if (err) return console.log(err)
 
 			const fileOrDir = takeFile()
 
@@ -83,7 +83,7 @@ if (command.i || command.input) {
 					return console.log('Only .txt files can be supported in this tool!')
 				}
 				fs.readFile(`${fileOrDir}`, 'utf-8', (error, data) => {
-					if (error) throw error
+					if (error) return console.log(error)
 
 					let parsedHtml = parse(html)
 
@@ -110,7 +110,7 @@ if (command.i || command.input) {
 							`${process.cwd()}/dist/index.html`,
 							parsedHtml.toString(),
 							(e) => {
-								if (e) throw e
+								if (e) return console.log(e)
 								console.log('New file has been created!!')
 							}
 						)
@@ -124,7 +124,7 @@ if (command.i || command.input) {
 				let count = 0
 				files.forEach((file) => {
 					fs.readFile(path.join(fileOrDir, file), 'utf-8', (error, data) => {
-						if (error) throw error
+						if (error) return console.log(error)
 						let parsedHtml = parse(html)
 
 						if (command.s) {
@@ -149,7 +149,7 @@ if (command.i || command.input) {
 								path.join(process.cwd(), 'dist', `index${count}.html`),
 								parsedHtml.toString(),
 								(e) => {
-									if (e) throw e
+									if (e) return console.log(e)
 									console.log('New file has been created in dist directory!!')
 								}
 							)
