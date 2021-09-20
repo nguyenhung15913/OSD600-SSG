@@ -1,5 +1,6 @@
 const yargs = require('yargs')
 const fs = require('fs')
+const path = require('path')
 
 const parse = require('node-html-parser').parse
 
@@ -15,9 +16,6 @@ const getTitle = (input) => {
 }
 
 const takeFile = () => {
-	if (!yargs.argv._[0].includes('.txt')) {
-		return false
-	}
 	return yargs.argv._[0]
 }
 
@@ -55,68 +53,36 @@ if (command.i || command.input) {
 		return console.log('Please enter file name or folder e.g: --input text.txt')
 	}
 
-	fs.readFile(`${__dirname}/htmlTemplate.html`, 'utf-8', (err, html) => {
-		if (err) throw err
+	fs.readFile(
+		path.join(__dirname, 'htmlTemplate.html'),
+		'utf-8',
+		(err, html) => {
+			if (err) throw err
 
-		const fileOrDir = takeFile()
-		if (!fileOrDir) {
-			return console.log('Only .txt files can be supported in this tool!')
-		}
+			const fileOrDir = takeFile()
 
-		if (!fs.existsSync(fileOrDir)) {
-			return console.log('No File or Directory Found')
-		}
-		const stats = fs.statSync(fileOrDir)
-
-		const dir = `${__dirname}/dist`
-
-		if (!fs.existsSync(dir)) {
-			fs.mkdirSync(dir)
-		} else {
-			fs.rmdirSync(dir, { recursive: true })
-			fs.mkdirSync(dir)
-		}
-
-		if (stats.isFile()) {
-			fs.readFile(`${fileOrDir}`, 'utf-8', (error, data) => {
-				if (error) throw error
-
-				let parsedHtml = parse(html)
-
-				if (command.s) {
-					let head = parsedHtml.querySelector('head')
-					head.appendChild(
-						parse(`<link href="${command.s}" rel="stylesheet" />`)
-					)
-				}
-				parsedHtml.querySelector('title').set_content(getTitle(data))
-
-				let body = parsedHtml.querySelector('body')
-				body.appendChild(parse(textToP(data)))
-				body.querySelector('p').replaceWith(parse(`<h1>${getTitle(data)}</h1>`))
-
-				const path = `${process.cwd()}/dist/${fileOrDir}.html`
-
-				if (!fs.existsSync(path)) {
-					fs.writeFile(
-						`${process.cwd()}/dist/index.html`,
-						parsedHtml.toString(),
-						(e) => {
-							if (e) throw e
-							console.log('New file has been created!!')
-						}
-					)
-				}
-			})
-		} else {
-			const files = fs.readdirSync(fileOrDir)
-			if (files.length <= 0) {
-				return console.log('There is no file in the directory')
+			if (!fs.existsSync(fileOrDir)) {
+				return console.log('No File or Directory Found')
 			}
-			let count = 0
-			files.forEach((file) => {
-				fs.readFile(`${fileOrDir}/${file}`, 'utf-8', (error, data) => {
+
+			const stats = fs.statSync(fileOrDir)
+
+			const dir = path.join(__dirname, 'dist')
+
+			if (!fs.existsSync(dir)) {
+				fs.mkdirSync(dir)
+			} else {
+				fs.rmdirSync(dir, { recursive: true })
+				fs.mkdirSync(dir)
+			}
+
+			if (stats.isFile()) {
+				if (!fileOrDir.includes('.txt')) {
+					return console.log('Only .txt files can be supported in this tool!')
+				}
+				fs.readFile(`${fileOrDir}`, 'utf-8', (error, data) => {
 					if (error) throw error
+
 					let parsedHtml = parse(html)
 
 					if (command.s) {
@@ -125,28 +91,70 @@ if (command.i || command.input) {
 							parse(`<link href="${command.s}" rel="stylesheet" />`)
 						)
 					}
-
 					parsedHtml.querySelector('title').set_content(getTitle(data))
+
 					let body = parsedHtml.querySelector('body')
 					body.appendChild(parse(textToP(data)))
 					body
 						.querySelector('p')
 						.replaceWith(parse(`<h1>${getTitle(data)}</h1>`))
-					const path = `${process.cwd()}/dist/${file}.html`
 
-					if (!fs.existsSync(path)) {
-						count++
+					if (
+						!fs.existsSync(
+							path.join(process.cwd(), 'dist', `${fileOrDir}.html`)
+						)
+					) {
 						fs.writeFile(
-							`${process.cwd()}/dist/index${count}.html`,
+							`${process.cwd()}/dist/index.html`,
 							parsedHtml.toString(),
 							(e) => {
 								if (e) throw e
-								console.log('New file has been created in dist directory!!')
+								console.log('New file has been created!!')
 							}
 						)
 					}
 				})
-			})
+			} else {
+				const files = fs.readdirSync(fileOrDir)
+				if (files.length <= 0) {
+					return console.log('There is no file in the directory')
+				}
+				let count = 0
+				files.forEach((file) => {
+					fs.readFile(path.join(fileOrDir, file), 'utf-8', (error, data) => {
+						if (error) throw error
+						let parsedHtml = parse(html)
+
+						if (command.s) {
+							let head = parsedHtml.querySelector('head')
+							head.appendChild(
+								parse(`<link href="${command.s}" rel="stylesheet" />`)
+							)
+						}
+
+						parsedHtml.querySelector('title').set_content(getTitle(data))
+						let body = parsedHtml.querySelector('body')
+						body.appendChild(parse(textToP(data)))
+						body
+							.querySelector('p')
+							.replaceWith(parse(`<h1>${getTitle(data)}</h1>`))
+						const pathName = `${process.cwd()}/dist/${file}.html`
+
+						if (!fs.existsSync(pathName)) {
+							count++
+
+							fs.writeFile(
+								path.join(process.cwd(), 'dist', `index${count}.html`),
+								parsedHtml.toString(),
+								(e) => {
+									if (e) throw e
+									console.log('New file has been created in dist directory!!')
+								}
+							)
+						}
+					})
+				})
+			}
 		}
-	})
+	)
 }
