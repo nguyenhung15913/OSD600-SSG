@@ -15,6 +15,9 @@ const getTitle = (input) => {
 }
 
 const takeFile = () => {
+	if (!yargs.argv._[0].includes('.txt')) {
+		return false
+	}
 	return yargs.argv._[0]
 }
 
@@ -56,6 +59,13 @@ if (command.i || command.input) {
 		if (err) throw err
 
 		const fileOrDir = takeFile()
+		if (!fileOrDir) {
+			return console.log('Only .txt files can be supported in this tool!')
+		}
+
+		if (!fs.existsSync(fileOrDir)) {
+			return console.log('No File or Directory Found')
+		}
 		const stats = fs.statSync(fileOrDir)
 
 		const dir = `${__dirname}/dist`

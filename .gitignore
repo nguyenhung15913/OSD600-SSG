@@ -2,3 +2,4 @@ node_modules/
 dir1/
 dist/
 *.txt
+*.md
