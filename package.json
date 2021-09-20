@@ -4,7 +4,7 @@
   "description": "",
   "main": "osdssg.js",
   "bin": {
-    "osdssg": "my-command"
+    "osdssg": "bin/osdssg.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
