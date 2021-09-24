@@ -9,7 +9,23 @@ const parse = require('node-html-parser').parse
 const textToP = (input) => {
 	return input
 		.split(/\r?\n/)
-		.map((elem) => `<p>${elem}</p>`)
+		.map((elem) =>  `<p>${elem}</p>`)
+		.join('\n')
+}
+const textToPMd= (input) =>{
+	return input
+		.split(/[\r?\n\r?\n]/g)
+		.map((line) => {
+			 return line.replace(/^# (.*$)/gim, '<h1>$1</h1>')
+			            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+						.replace(/^### (.*$)/gim, '<h3>$1</h3>')
+						.replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+						.replace(/(^[a-z](.*)$)/gim, '<p>$1</p>')
+						.replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
+						.replace(/\*\*(.*?!*)\*\*/gim, '<strong> $1 </strong>' )
+						.replace(/\*(.*?!*)\*/gim, '<i> $1 </i>')
+						
+			  })
 		.join('\n')
 }
 
@@ -22,6 +38,7 @@ const takeFile = () => {
 }
 
 let cli = require('yargs')
+const { string } = require('yargs')
 
 cli = cli
 	.usage('All available options for OSDSSG: ')
@@ -77,30 +94,40 @@ if (command.i || command.input) {
 				fs.rmdirSync(dir, { recursive: true })
 				fs.mkdirSync(dir)
 			}
-
+            
 			if (stats.isFile()) {
-				if (!fileOrDir.includes('.txt')) {
-					return console.log('Only .txt files can be supported in this tool!')
+				if (!fileOrDir.includes('.txt') && !fileOrDir.includes('.md')) {
+					return console.log('Only .txt files and .md files can be supported in this tool!')
 				}
+				const isMDfile= fileOrDir.endsWith(".md");
 				fs.readFile(`${fileOrDir}`, 'utf-8', (error, data) => {
 					if (error) return console.log(error)
 
 					let parsedHtml = parse(html)
-
+                    let title;
+					let bodyPart;
+					let body = parsedHtml.querySelector('body');
 					if (command.s) {
 						let head = parsedHtml.querySelector('head')
 						head.appendChild(
 							parse(`<link href="${command.s}" rel="stylesheet" />`)
 						)
 					}
-					parsedHtml.querySelector('title').set_content(getTitle(data))
-
-					let body = parsedHtml.querySelector('body')
-					body.appendChild(parse(textToP(data)))
-					body
-						.querySelector('p')
-						.replaceWith(parse(`<h1>${getTitle(data)}</h1>`))
-
+					
+                    if(isMDfile){	
+					// if it is md file, the title will be the first h1 
+						bodyPart= textToPMd(data);
+						body.appendChild(parse(bodyPart));
+						title= body.querySelector('h1')?.text || "Document";
+					}else{
+						title= getTitle(data);
+						bodyPart= textToP(data);
+						body.appendChild(parse(bodyPart));
+						body
+							.querySelector('p')
+							.replaceWith(parse(`<h1>${title}</h1>`)) 
+					}
+					parsedHtml.querySelector('title').set_content(title)
 					if (
 						!fs.existsSync(
 							path.join(process.cwd(), 'dist', `${fileOrDir}.html`)
@@ -123,23 +150,35 @@ if (command.i || command.input) {
 				}
 				let count = 0
 				files.forEach((file) => {
+					const isMDfile= file.endsWith(".md");
 					fs.readFile(path.join(fileOrDir, file), 'utf-8', (error, data) => {
 						if (error) return console.log(error)
 						let parsedHtml = parse(html)
-
+                        
 						if (command.s) {
 							let head = parsedHtml.querySelector('head')
 							head.appendChild(
 								parse(`<link href="${command.s}" rel="stylesheet" />`)
 							)
 						}
-
-						parsedHtml.querySelector('title').set_content(getTitle(data))
+						let title;
+						let bodyPart;
 						let body = parsedHtml.querySelector('body')
-						body.appendChild(parse(textToP(data)))
-						body
-							.querySelector('p')
-							.replaceWith(parse(`<h1>${getTitle(data)}</h1>`))
+                        if(isMDfile){	
+						 // if it is md file, the title will be the first h1 
+						  	bodyPart= textToPMd(data);
+							body.appendChild(parse(bodyPart));
+							title= body.querySelector('h1')?.text || "Document";
+						}else{
+							title= getTitle(data);
+							bodyPart= textToP(data);
+							body.appendChild(parse(bodyPart));
+							body
+							   .querySelector('p')
+							   .replaceWith(parse(`<h1>${title}</h1>`)) 
+						}
+					
+                        parsedHtml.querySelector('title').set_content(title)
 						const pathName = `${process.cwd()}/dist/${file}.html`
 
 						if (!fs.existsSync(pathName)) {
