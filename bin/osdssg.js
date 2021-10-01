@@ -31,6 +31,7 @@ const textToPMd = (input) => {
 };
 
 const getTitle = (input) => {
+	console.log("hello");
 	return input.split(/\r?\n/).slice(0, 1);
 };
 
