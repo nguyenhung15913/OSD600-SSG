@@ -25,7 +25,7 @@ const textToPMd = (input) => {
 				.replace(/^\> (.*$)/gim, "<blockquote>$1</blockquote>")
 				.replace(/\*\*(.*?!*)\*\*/gim, "<strong> $1 </strong>")
 				.replace(/\*(.*?!*)\*/gim, "<i> $1 </i>")
-				.replace(/---/, "<hr />");
+				.replace(/---/gm, "<hr />");
 		})
 		.join("\n");
 };
