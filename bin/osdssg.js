@@ -31,7 +31,11 @@ const textToPMd = (input) => {
 };
 
 const getTitle = (input) => {
+<<<<<<< HEAD
 	console.log("hello");
+=======
+	console.log("test1");
+>>>>>>> issue-11
 	return input.split(/\r?\n/).slice(0, 1);
 };
 
