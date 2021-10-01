@@ -51,7 +51,7 @@ const updatingLang = (parsedHtml) => {
 			parsedHtml.childNodes[1].rawAttrs = `lang="${command.l}"`;
 			return console.log(`Language has been set`);
 		}
-		return console.log("Please add chosen language after flag!");
+		return console.log("Please add chosen language after flag. e.g: -f fr");
 	}
 };
 
