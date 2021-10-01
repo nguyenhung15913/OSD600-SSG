@@ -31,7 +31,6 @@ const textToPMd = (input) => {
 };
 
 const getTitle = (input) => {
-	console.log("hello");
 	return input.split(/\r?\n/).slice(0, 1);
 };
 
@@ -57,7 +56,6 @@ const updatingLang = (parsedHtml) => {
 };
 
 let cli = require("yargs");
-const { string } = require("yargs");
 
 cli = cli
 	.usage("All available options for OSDSSG: ")
