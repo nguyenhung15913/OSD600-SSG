@@ -3,3 +3,4 @@ dir1/
 dist/
 *.txt
 *.md
+*.json
