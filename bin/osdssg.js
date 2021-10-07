@@ -235,7 +235,12 @@ if (command.c || command.config) {
 
   const configFile = fs.readFileSync(yargs.argv._[0]);
   const config = JSON.parse(configFile);
-  console.log(config);
+
+  inputFileorDir = config.input;
+  command.s = config.stylesheet;
+  command.l = config.lang;
+
+  processInput();
 }
 
 if (command.i || command.input) {
