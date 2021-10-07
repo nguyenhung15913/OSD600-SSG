@@ -58,7 +58,7 @@ const updatingLang = (parsedHtml) => {
   }
 };
 
-const process = () => {
+const processInput = () => {
   fs.readFile(
     path.join(__dirname, "htmlTemplate.html"),
     "utf-8",
@@ -246,5 +246,5 @@ if (command.i || command.input) {
 
   inputFileorDir = yargs.argv._[0];
 
-  process();
+  processInput();
 }
