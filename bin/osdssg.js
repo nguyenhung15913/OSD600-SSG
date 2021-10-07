@@ -78,7 +78,7 @@ const processInput = () => {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       } else {
-        fs.rmdirSync(dir, { recursive: true });
+        fs.rmSync(dir, { recursive: true });
         fs.mkdirSync(dir);
       }
 
