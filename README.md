@@ -12,6 +12,14 @@
 - "dist" folder will renew every time a new command-line executed (Old file(s) will be deleted and new file(s) will be added).
 - Creating a title inside head tag and transforming the first line of the text to h1 tag.
 - Creating stylesheet link tag if users use --stylesheet or -s flag.
+- Able to pass a json config file e.g 
+```json
+{
+  "input": "./site",
+  "stylesheet": "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+  "lang": "fr"
+}
+```
 
 ## Installation
 
@@ -27,6 +35,7 @@ npm link
 ```
 osdssg -i <file's location>
 osdssg --input <directory's location> // Read all files inside and creates html files for each
+osdssg -c/--config <json config location>
  // Note: file's name and folder's name that contains whitespaces have to be placed inside double quote ("")
 ```
 
@@ -36,6 +45,7 @@ osdssg --input <directory's location> // Read all files inside and creates html 
  -h,--help: See help list
  -v,--version: Version of current osdssg
  -i,--input: input a file or a folder
+ -c,--config: input json config file
  -s,--stylesheet: Add a stylesheet link into <head>
  -l,--language: Modify the lang="" in HTML tag
 ```

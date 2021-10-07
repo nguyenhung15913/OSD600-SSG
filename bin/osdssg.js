@@ -200,6 +200,11 @@ cli = cli
     alias: "i",
     desc: "Input file's name or directory's name e.g: osdssg --input text.txt or osdssg -i ./dir1",
   })
+  .option("config", {
+    type: "boolean",
+    alias: "c",
+    desc: "Optionally specify a json file that is parsed and provides input, stylesheet or lang e.g: -c config.json",
+  })
   .option("version", {
     alias: "v",
     desc: "Show current version of osdssg",
@@ -211,16 +216,14 @@ cli = cli
   .option("lang", {
     alias: "l",
     desc: "Add an option flag to indicates the language of the html element. e.g: --lang fr is lang='fr' means using French",
-  })
-  .option("config", {
-    type: "boolean",
-    alias: "c",
-    desc: "Optionally specify a json file that is parsed and provides input, stylesheet or lang e.g: -c config.json",
   }).argv;
 
 const command = yargs.argv;
 
 if (command.c || command.config) {
+  if (command.i || command.input)
+    return console.log("Cannot provide both a config and input file");
+
   if (command._.length <= 0) {
     return console.log(
       "Please enter a config file name e.g: --config config.json"
@@ -244,6 +247,9 @@ if (command.c || command.config) {
 }
 
 if (command.i || command.input) {
+  if (command.c || command.config)
+    return console.log("Cannot provide both a config and input file");
+
   if (command._.length <= 0) {
     return console.log(
       "Please enter file name or folder e.g: --input text.txt"
