@@ -233,7 +233,8 @@ if (command.c || command.config) {
   if (!fs.existsSync(yargs.argv._[0]))
     return console.log("Config file does not exist");
 
-  const config = JSON.parse(yargs.argv._[0]);
+  const configFile = fs.readFileSync(yargs.argv._[0]);
+  const config = JSON.parse(configFile);
   console.log(config);
 }
 
