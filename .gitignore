@@ -3,3 +3,5 @@ dir1/
 dist/
 *.txt
 *.md
+sample
+build/
