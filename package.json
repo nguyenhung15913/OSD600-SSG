@@ -13,6 +13,7 @@
   "author": "Hung Nguyen",
   "license": "MIT",
   "dependencies": {
+    "markdown-it": "^12.2.0",
     "node-html-parser": "^4.1.4",
     "yargs": "^17.1.1"
   }

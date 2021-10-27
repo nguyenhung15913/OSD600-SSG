@@ -3,7 +3,7 @@
 const yargs = require("yargs");
 const fs = require("fs");
 const path = require("path");
-
+const textToPMd = require("./markdown").textToPMd;
 const { parse } = require("node-html-parser");
 
 const addingDataToHTMLFile = (parsedHtml, data, isMDfile) => {
@@ -15,6 +15,15 @@ const addingDataToHTMLFile = (parsedHtml, data, isMDfile) => {
 		// if it is md file, the title will be the first h1
 		bodyPart = textToPMd(data);
 		body.appendChild(parse(bodyPart));
+
+		if (body.querySelector("pre")) {
+			let head = parsedHtml.querySelector("head");
+			head.appendChild(
+				parse(`<link href="/styles/highlight.css" rel="stylesheet" />`)
+			);
+
+			body.querySelector("pre").classList.add("highlight");
+		}
 		title = body.querySelector("h1")?.text || "Document";
 	} else {
 		title = getTitle(data);
@@ -29,24 +38,6 @@ const textToP = (input) => {
 	return input
 		.split(/\r?\n/)
 		.map((elem) => `<p>${elem}</p>`)
-		.join("\n");
-};
-
-const textToPMd = (input) => {
-	return input
-		.split(/[\r?\n\r?\n]/g)
-		.map((line) => {
-			return line
-				.replace(/^# (.*$)/gim, "<h1>$1</h1>")
-				.replace(/^## (.*$)/gim, "<h2>$1</h2>")
-				.replace(/^### (.*$)/gim, "<h3>$1</h3>")
-				.replace(/^#### (.*$)/gim, "<h4>$1</h4>")
-				.replace(/(^[a-z](.*)$)/gim, "<p>$1</p>")
-				.replace(/^\> (.*$)/gim, "<blockquote>$1</blockquote>")
-				.replace(/\*\*(.*?!*)\*\*/gim, "<strong> $1 </strong>")
-				.replace(/\*(.*?!*)\*/gim, "<i> $1 </i>")
-				.replace(/---/gm, "<hr />");
-		})
 		.join("\n");
 };
 
