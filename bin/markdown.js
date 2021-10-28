@@ -3,7 +3,7 @@ var MarkdownIt = require("markdown-it"),
 let { parse } = require("node-html-parser");
 
 const syntaxHighlight = (body, head) => {
-	if (body.querySelector("pre")) {
+	if (body.querySelector("pre") !== null) {
 		head.appendChild(
 			parse(`<link href="/styles/highlight.css" rel="stylesheet" />`)
 		);
