@@ -3,27 +3,19 @@
 const yargs = require("yargs");
 const fs = require("fs");
 const path = require("path");
-const textToPMd = require("./markdown").textToPMd;
+const { textToPMd, syntaxHighlight } = require("./markdown");
 const { parse } = require("node-html-parser");
 
 const addingDataToHTMLFile = (parsedHtml, data, isMDfile) => {
 	let title;
 	let bodyPart;
 	let body = parsedHtml.querySelector("body");
-
+	let head = parsedHtml.querySelector("head");
 	if (isMDfile) {
 		// if it is md file, the title will be the first h1
 		bodyPart = textToPMd(data);
 		body.appendChild(parse(bodyPart));
-
-		if (body.querySelector("pre")) {
-			let head = parsedHtml.querySelector("head");
-			head.appendChild(
-				parse(`<link href="/styles/highlight.css" rel="stylesheet" />`)
-			);
-
-			body.querySelector("pre").classList.add("highlight");
-		}
+		syntaxHighlight(body, head);
 		title = body.querySelector("h1")?.text || "Document";
 	} else {
 		title = getTitle(data);
