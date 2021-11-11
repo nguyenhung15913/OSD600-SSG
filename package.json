@@ -7,7 +7,7 @@
     "osdssg": "bin/osdssg.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "standard-check": "npx standard",
     "standard-fix": "npx standard --fix",
     "eslint-check": "npx eslint ./bin && osdssg -c config.json",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "eslint": "^7.18.0",
+    "jest": "^27.3.1",
     "standard": "^16.0.4"
   }
 }

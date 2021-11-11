@@ -55,6 +55,10 @@ To automatically fix all formatting errors:
 
 Please install Prettier and ESLint extensions in order to integrate Source Code Formatter and Linter into the editor. This will help you to check and list our any errors or warnings once you save your file.
 
+## Testing
+
+This tool uses JestJS as a testing tool. When you want to test the tool, please make sure to create a <code>test</code> directory and put all your test files there. Run <code>npm run test</code> with file name in order for Jest do its work.
+
 ## Author
 
 **Hung Nguyen**
