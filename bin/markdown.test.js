@@ -1,25 +1,50 @@
 /* global require test expect describe */
-const { textToPMd, cliValid } = require("./markdown");
+const { textToPMd, cliValid, textToP } = require("./markdown");
+
+describe("P tag parser test", () => {
+	test("Test with null or empty file input", () => {
+		const nullInput = textToP(null);
+		const emptyStringInput = textToP("");
+
+		expect(nullInput).toBeUndefined();
+		expect(emptyStringInput).toBeUndefined();
+	});
+
+	test("Test one line input", () => {
+		const input = textToP("This is text input");
+		expect(input).toMatch(/<p>This is text input/);
+	});
+
+	test("Test with multiple lines input", () => {
+		const multiLineInput = textToP(`Open Source
+              OSDSSD
+              It is all about contribution to open source community
+          
+              There is one empty line above
+              `);
+		expect(multiLineInput).not.toBeNull();
+	});
+});
 
 describe("test user's valid CLI", () => {
 	test("No commands were passed", () => {
-		let nullInput = cliValid(null);
+		const nullInput = cliValid(null);
 
 		expect(nullInput).toBeFalsy();
 	});
 
 	test("If user did not pass --input or --config flags", () => {
-		let styleSheetAdd = {
+		const styleSheetAdd = {
 			stylesheet: true
 		};
 
-		let command = cliValid(styleSheetAdd);
+		const command = cliValid(styleSheetAdd);
 
 		expect(command).toBeFalsy();
 	});
 
 	test("If user passed --input or --config flags", () => {
-		let inputCLI = {
+		const inputCLI = {
 			i: true,
 			input: true,
 			config: true,
@@ -27,7 +52,7 @@ describe("test user's valid CLI", () => {
 		};
 		console.log(inputCLI);
 
-		let commandInput = cliValid(inputCLI);
+		const commandInput = cliValid(inputCLI);
 
 		expect(commandInput).toBeTruthy();
 	});
@@ -35,22 +60,22 @@ describe("test user's valid CLI", () => {
 
 describe("Markdown parser to HTML tests", () => {
 	test("markdown Test with null or empty file input", () => {
-		let nullInput = textToPMd(null);
-		let emptyStringInput = textToPMd("");
+		const nullInput = textToPMd(null);
+		const emptyStringInput = textToPMd("");
 
 		expect(nullInput).toBeUndefined();
 		expect(emptyStringInput).toBeUndefined();
 	});
 
 	test("markdown Test one line input", () => {
-		let h1Input = textToPMd("# This is heading 1");
-		let input = textToPMd("This is text input");
+		const h1Input = textToPMd("# This is heading 1");
+		const input = textToPMd("This is text input");
 		expect(h1Input).toMatch(/<h1>This is heading 1/);
 		expect(input).toMatch(/<p>This is text input/);
 	});
 
 	test("markdown Test with multiple lines input", () => {
-		let multiLineInput = textToPMd(`# Open Source
+		const multiLineInput = textToPMd(`# Open Source
 			## OSDSSD
 			It is all about contribution to open source community
 		

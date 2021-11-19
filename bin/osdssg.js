@@ -4,7 +4,7 @@
 const yargs = require("yargs");
 const fs = require("fs");
 const path = require("path");
-const { textToPMd, syntaxHighlight, cliValid } = require("./markdown");
+const { textToPMd, syntaxHighlight, cliValid, textToP } = require("./markdown");
 const { parse } = require("node-html-parser");
 
 const addingDataToHTMLFile = (parsedHtml, data, isMDfile) => {
@@ -25,13 +25,6 @@ const addingDataToHTMLFile = (parsedHtml, data, isMDfile) => {
 		body.querySelector("p").replaceWith(parse(`<h1>${title}</h1>`));
 	}
 	parsedHtml.querySelector("title").set_content(title);
-};
-
-const textToP = (input) => {
-	return input
-		.split(/\r?\n/)
-		.map((elem) => `<p>${elem}</p>`)
-		.join("\n");
 };
 
 const getTitle = (input) => {
@@ -98,7 +91,9 @@ require("yargs")
 const command = yargs.argv;
 
 // moved if condition to here and added config identify opt
-if (cliValid(command) === false) process.exit(1);
+if (cliValid(command) === false) {
+	console.log("invalid CLI");
+}
 
 let fileOrDir;
 let outputDir;
@@ -210,3 +205,8 @@ fs.readFile(path.join(__dirname, "htmlTemplate.html"), "utf-8", (err, html) => {
 		});
 	}
 });
+
+// eslint-disable-next-line no-undef
+module.exports = {
+	textToP
+};
