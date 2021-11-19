@@ -1,4 +1,4 @@
-/* global require module process */
+/* global require module */
 const MarkdownIt = require("markdown-it");
 const md = new MarkdownIt();
 const { parse } = require("node-html-parser");
