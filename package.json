@@ -10,7 +10,7 @@
     "test": "jest",
     "standard-check": "npx standard",
     "standard-fix": "npx standard --fix",
-    "eslint-check": "npx eslint ./bin && osdssg -c config.json",
+    "eslint-check": "npx eslint ./bin",
     "eslint-fix": "npx eslint --fix"
   },
   "keywords": [],
