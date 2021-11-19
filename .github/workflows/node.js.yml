@@ -29,4 +29,3 @@ jobs:
     - run: npm ci
     - run: npm test
     - run: npm run eslint-check
-    - run: npm run standard-check
