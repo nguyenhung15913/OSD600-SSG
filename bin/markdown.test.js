@@ -60,30 +60,3 @@ describe("Markdown parser to HTML tests", () => {
     expect(multiLineInput).not.toBeNull();
   });
 });
-describe("test syntaxHighlight", () => {
-  const prepareForHead = () => {
-    const head = parse(`<head>
-		  <meta charset="UTF-8">
-		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		  <title>Document</title>
-	  </head>`);
-    return head;
-  };
-  const prepareForBody = () => {
-    const body = parse(`<body>
-		  <pre>will be highlight</pre>	
-	  </body>`);
-    return body;
-  };
-
-  test("No commands were passed", () => {
-    const body = prepareForBody();
-    const head = prepareForHead();
-    syntaxHighlight(body, head);
-    expect(head.querySelector("link")).not.toBeNull();
-    expect(
-      body.querySelector("pre").classList.contains("highlight")
-    ).toBeTruthy();
-  });
-});
