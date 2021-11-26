@@ -1,10 +1,14 @@
 {
-  "name": "OSD600-SSG",
+  "name": "osd6--ssg",
   "version": "1.0.0",
   "description": "",
   "main": "osdssg.js",
   "bin": {
     "osdssg": "bin/osdssg.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenhung15913/OSD600-SSG.git"
   },
   "scripts": {
     "test": "jest",
