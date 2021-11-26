@@ -16,10 +16,7 @@
 ## Installation
 
 ```
-git clone https://github.com/nguyenhung15913/OSD600-SSG.git
-cd OSD600-SSG
-npm install
-npm link
+npm i osd600-ssg --save
 ```
 
 ## Usage
