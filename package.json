@@ -1,6 +1,6 @@
 {
-  "name": "osd6--ssg",
-  "version": "1.0.0",
+  "name": "osd600-ssg",
+  "version": "1.0.1",
   "description": "",
   "main": "osdssg.js",
   "bin": {
