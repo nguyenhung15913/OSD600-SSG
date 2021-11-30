@@ -3,6 +3,17 @@ const MarkdownIt = require("markdown-it");
 const md = new MarkdownIt();
 const { parse } = require("node-html-parser");
 
+const textToP = (input) => {
+	if (input === null || input.length <= 0) {
+		return console.log("There is no input");
+	}
+
+	return input
+		.split(/\r?\n/)
+		.map((elem) => `<p>${elem}</p>`)
+		.join("\n");
+};
+
 const syntaxHighlight = (body, head) => {
 	if (body.querySelector("pre") != null) {
 		head.appendChild(
@@ -41,5 +52,6 @@ const textToPMd = (input) => {
 module.exports = {
 	textToPMd,
 	syntaxHighlight,
-	cliValid
+	cliValid,
+	textToP
 };
