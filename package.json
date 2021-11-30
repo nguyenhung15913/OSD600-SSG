@@ -12,6 +12,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:cover": "jest --coverage",
     "standard-check": "npx standard",
     "standard-fix": "npx standard --fix",
     "eslint-check": "npx eslint ./bin",
